@@ -1,16 +1,15 @@
-const Portfolio = require("../models/book")
-
+const Books = require("../models/books")
 
 
 module.exports = function(app) {
   //verified code works
   app.get('/api/books', (req, res) => {
     console.log(req);
-    Portfolio.find({})
+    Books.find({})
     .sort({ createDate: -1 })//desending order should return the newest first
-    .then(dbPortfolio => {
+    .then(dbBooks => {
       console.log(res);
-      res.json(dbPortfolio);
+      res.json(dbBooks);
     })
     .catch(err => {
       res.status(400).json(err);
@@ -21,11 +20,11 @@ module.exports = function(app) {
 
   app.put('/api/books', (req, res) => {
     console.log(req);
-    Portfolio.find({})
+    Books.find({})
     .sort({ createDate: -1 })//desending order should return the newest first
-    .then(dbPortfolio => {
+    .then(dbBooks => {
       console.log(res);
-      res.json(dbPortfolio);
+      res.json(dbBooks);
     })
     .catch(err => {
       res.status(400).json(err);
@@ -38,7 +37,7 @@ module.exports = function(app) {
         let rec_id = req.params.id;
         rec_id.trim(); //make sure no spaces
         //findOneAndUpdate(filter, update, options)
-        Portfolio.findOneAndUpdate(
+        Books.findOneAndUpdate(
             {_id: rec_id}, // filter
             {
               imgLoc: req.body.imgLoc,
@@ -61,7 +60,7 @@ module.exports = function(app) {
     let rec_id = req.params.id;
     rec_id.trim(); //make sure no spaces
     //findOneAndUpdate(filter, update, options)
-    Portfolio.deleteOne({_id: rec_id})
+    Books.deleteOne({_id: rec_id})
     .then(data => {
       res.json(data);
   })
@@ -71,14 +70,18 @@ module.exports = function(app) {
 });
 
   app.post("/api/books", (req, res) => {
-    Portfolio.create(req.body)
-    .then(dbPortfolio => {
-      res.json(dbPortfolio);
+    Books.create(req.body)
+    .then(dbBooks => {
+      res.json(dbBooks);
     })
     .catch(err => {
       res.status(400).json(err);
     }); 
   });
-  
 
+
+  app.get("/api/test", (req, res) => {
+      res.json({msg: "Test Message"})
+  })
+  
 }

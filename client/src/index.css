@@ -1,13 +1,77 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* base styles */
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Quicksand";
+}
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+ul.left {
+  margin-left: auto;
+  font-size: 25px;
+}
+
+.media {
+  height: 300px;
+  padding: 10px; 
+  margin: 5px;
+}
+.navbr {
+  margin-left: auto;
+  margin-left: 16px;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 6px;
+}
+.navbar a:hover {
+  color: lightcoral;  
+}
+
+.content {
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.content h5 {
+  font-size: 20px;
+  color: blue;
+  margin-bottom: 8px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem; 
+  text-align: right;
+}
+
+
+img {
+  width: auto;
+  height: 120px;
+  position: center;
+  align-items: center;
+}
+
+
+button {
+  font-size: 15px;
+  border: 2px solid;
+  display: inline-block;
+  margin-left: 1em;
+}
+
+button:hover {
+  background-color: darkgrey;
+  color: white;
+  transform: translateY(2px);
+  border-color: teal;
 }

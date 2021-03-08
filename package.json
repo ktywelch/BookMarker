@@ -4,15 +4,25 @@
   "description": "### Overview",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"nodemon server.js\" \"REACT_APP_API_KEY=AIzaSyAf0CVwLS-c3P_jH_ugTVx-56Vjfgj8s6A npm run client\"",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.11.19",
     "morgan": "^1.10.0"
   }
 }
+
+
