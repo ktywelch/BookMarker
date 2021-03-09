@@ -70,6 +70,7 @@ module.exports = function(app) {
 });
 
   app.post("/api/books", (req, res) => {
+    console.log(req.body),
     Books.create(req.body)
     .then(dbBooks => {
       res.json(dbBooks);

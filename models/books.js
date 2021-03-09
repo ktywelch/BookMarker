@@ -5,9 +5,7 @@ const Schema = mongoose.Schema;
 const booksSchema = new Schema(
   {
     imgLoc: {
-       type: String,
-       trim: true,
-       required: [true,'The thumbnail location']
+       type: String
     },
     title: {
       type: String,
@@ -18,12 +16,10 @@ const booksSchema = new Schema(
         type: Array
       },
     description: {
-      type: String,
-      required: [true,'Enter a Description']
+      type: String
     },    
     link: {
-        type: String,
-        required: [true,'Enter a url for repository']
+        type: String
       }
   }
 );

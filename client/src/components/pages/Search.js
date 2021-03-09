@@ -1,34 +1,66 @@
 import React, { useState,useEffect } from 'react'
-import useAxios from '../utils/useAxios'
-import SearchExecDisp from './SearchExecDisp'
+import useFetch from '../utils/useFetch'
 import SearchDisplay from './SearchDisplay'
+import axios from 'axios';
+import ReactDOM from "react-dom";
+
 const {REACT_APP_API_KEY} = process.env;
 
 
 const Search = () => {
+
     const baseUrl = 'https://www.googleapis.com/books/v1/volumes'
     const [query, setQuery] = useState(null);    
-    const [books, setBooks] = useState({});  
     const [url, setUrl] = useState('');
-    const {data, isPending, isError} = useAxios(url)
- 
+    const [data, setData] = useState(null);
+    const [isError, setIsError] = useState(null);
+    const [isPending, setIsPending] = useState(false);
+    const [render, setRender] = useState(false)
 
-        useEffect(() => {
-            console.log(data); 
-            setBooks(data);
-         },[url])
-         
+  
+    useEffect(() => {
+        // setting up to catch an abort in the query
+        const CancelToken = axios.CancelToken;
+        const source = CancelToken.source();
+
+            axios.get(url, {cancelToken: source.token,
+                responseType: 'json'})
+                .then(res => {
+                    if(res.status !== 200){
+                     throw Error("Did not get valid for that resource")
+                    }
+                return res.data;
+                })
+                .then ((data) => {
+                setData(data);
+                setIsPending(false);
+                setIsError(null);
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                    if (axios.isCancel.err) {
+                        console.log('Request canceled', err.message);
+                      }  else {    
+                    setIsError(err.message);
+                    setIsPending(false);
+                    }
+                })
+        return () => CancelToken.cancel;
+    },[url]) 
+
+
     
-    const handleClick = (e,cb) => {
+    const handleClick = async (e) => {
         e.preventDefault();
         var {author, title, subject} = query;
         author ? author = '+inauthor:' + author.replace(/\s/g, '+').toLowerCase() : author='';
         title ? title = '+intitle:' + title.replace(/\s/g, '+').toLowerCase() : title='';
         subject ? subject = '+subject:' + subject.replace(/\s/g, '+').toLowerCase(): subject='';   
-        query ?   setUrl(baseUrl + '?q=' + subject + author + title + 
-        '&maxResults=30&filter=free-ebooks&printType=books&projection=lite&key=' + REACT_APP_API_KEY ) : setUrl(null);
-    
-    }   
+        query &&  setUrl(baseUrl + '?q=' + subject + author + title + 
+        '&maxResults=30&filter=free-ebooks&printType=books&projection=lite&key=' + REACT_APP_API_KEY );
+        setData();
+
+        }
     
 
     return (
@@ -46,12 +78,14 @@ const Search = () => {
                         className="input-field col s2" type="text" placeholder=" Category (eg. fiction)" name="subject" 
                         onChange={e => setQuery({ ...query, subject: e.target.value })}/>
                 </div>
-                <button type="submit" onClick={(e) => handleClick(e)}>
+                <button type="button" onClick={(e) => handleClick(e)}>
                 Start Search
             </button>
             </form>
-            {/* {url?<SearchExecDisp url={url} />:null} */}
-            {data?<SearchDisplay data={data} />:null}
+
+            {isError && <div>No Data - {isError}</div> }
+            {isPending && <div>Data is Loading ...</div> }
+            {data &&  <SearchDisplay data={data} />}
         </div>
     )
 }
