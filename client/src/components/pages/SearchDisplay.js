@@ -20,7 +20,7 @@ const SearchDisplay = (props) => {
             title: book.volumeInfo.title, 
             authors: book.volumeInfo.authors,
             description: book.volumeInfo.description,
-            link: book.accessInfo.pdf.downloadLink
+            link: book.selfLink
             }
         )
         .then(res => {

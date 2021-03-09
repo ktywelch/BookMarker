@@ -11,21 +11,9 @@ const SearchDisplay = (props) => {
      
  function handleSaveClick (e,book) {
        e.preventDefault();
-       console.log('click')
-       //Save the book details
-       axios.post('api/books',
-            {
-            bookId: book.id,    
-            imgLoc: book.volumeInfo.imageLinks.thumbnail,
-            title: book.volumeInfo.title, 
-            authors: book.volumeInfo.authors,
-            description: book.volumeInfo.description,
-            link: book.accessInfo.pdf.downloadLink
-            }
-        )
-        .then(res => {
-            console.log(res);
-        })
+       console.log('click',book.link)
+     
+
    
     }
 
@@ -56,7 +44,7 @@ const SearchDisplay = (props) => {
                             </td>
                             <td className="s4">{book.description}</td>
                             <td className="s4">
-                                {props.calledby === 'search' ? <button type="button" onClick={e => {handleSaveClick(e,book)}}>Save</button>:null}
+                               <button type="button" onClick={e => {handleSaveClick(e,book)}}>Link</button>
                             </td>
                         </tr>
                     ))
