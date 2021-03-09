@@ -8,7 +8,7 @@ module.exports = function(app) {
     Books.find({})
     .sort({ createDate: -1 })//desending order should return the newest first
     .then(dbBooks => {
-      console.log(res);
+      console.log(dbBooks);
       res.json(dbBooks);
     })
     .catch(err => {

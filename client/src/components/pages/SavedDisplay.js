@@ -46,15 +46,15 @@ const SearchDisplay = (props) => {
                 </thead>
                 <tbody>
                     {filteredBooks && filteredBooks.map((book) => (    
-                        <tr className='table-row' key={book.id}>
+                        <tr className='table-row' key={book._id}>
                             <td className="col s4">
-                            {book.volumeInfo.imageLinks && <img src={book.volumeInfo.imageLinks.thumbnail} alt={"cover" + book.volumeInfo.title}/>}
+                            <img src={book.imgLoc} alt={"cover" + book.title}/>
                             </td>
-                            <td className="s2">{book.volumeInfo.title} </td>
-                            <td className="s2">{book.volumeInfo.authors?book.volumeInfo.authors.map((value,index) => 
+                            <td className="s2">{book.title} </td>
+                            <td className="s2">{book.authors?book.authors.map((value,index) => 
                                     (<p key={index}>{value}</p>)):null}
                             </td>
-                            <td className="s4">{book.volumeInfo.description}</td>
+                            <td className="s4">{book.description}</td>
                             <td className="s4">
                                 {props.calledby === 'search' ? <button type="button" onClick={e => {handleSaveClick(e,book)}}>Save</button>:null}
                             </td>

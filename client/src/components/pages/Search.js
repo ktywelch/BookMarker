@@ -1,8 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import useAxios from '../utils/useAxios'
 import SearchDisplay from './SearchDisplay'
-
-
 const {REACT_APP_API_KEY} = process.env;
 
 
@@ -16,7 +14,7 @@ const Search = () => {
 
     //required this useEffect to Render when data change from custom hook useAxios 
     useEffect(() =>{
-        setBookdata(data)
+        data && setBookdata(data.items)
     },[data])
 
 
@@ -53,7 +51,7 @@ const Search = () => {
 
             {url && isError && <div>No Data - {isError}</div> }
             {isPending && <div>Data is Loading ...</div> }
-            {bookdata &&  <SearchDisplay data={bookdata} />}
+            {bookdata &&  <SearchDisplay data={bookdata} calledby={'search'}/>}
         </div>
     )
 }

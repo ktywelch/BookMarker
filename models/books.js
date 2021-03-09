@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 const booksSchema = new Schema(
   {
+    bookId: { 
+      type: String
+    },
     imgLoc: {
        type: String
     },
