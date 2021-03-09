@@ -23,7 +23,7 @@ const SearchDisplay = (props) => {
             <span>Filter by Name: </span> 
              <input type="text" placeholder="Enter Filter Criteria" onChange={ e => setSerach(e.target.value)} />
             
-              <table>
+              <table className="responsive-table">
                 <thead>
                 <tr>     
                     <th></th>

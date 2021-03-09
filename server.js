@@ -18,10 +18,11 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-const apiRoutes = require('./routes/api_routes');
+app.use("/users", require("./routes/userRoutes"));
+app.use("/api", require("./routes/api_routes"));
 
 
-apiRoutes(app);
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

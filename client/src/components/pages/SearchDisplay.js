@@ -31,7 +31,7 @@ const SearchDisplay = (props) => {
 
 
     return (
-        <div className="SearchDisplay">
+        <div className="responsive-table">
             <span>Filter by Name: </span> 
              <input type="text" placeholder="Enter Filter Criteria" onChange={ e => setSerach(e.target.value)} />
             
