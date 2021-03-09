@@ -7,29 +7,29 @@ const SearchDisplay = (props) => {
 
 
     const [filteredBooks, setFilteredBooks] =  useState(props.data.items)
-    const [data, setData] = useState(props.data.items);
+ 
     const [search, setSerach] = useState('');
     const [saveBook,setSaveBook] = useState({});
 
     const handleClick = (e,book) => {
        e.preventDefault();
-    //    setSaveBook({
-    //         imgLoc: book.volumeInfo.imageLinks.thumbnail,
-    //         title: book.volumeInfo.title, 
-    //         authors: book.volumeInfo.authors,
-    //         description: book.volumeInfo.description,
-    //         link: book.accessInfo.pdf.downloadLink
-    //     })
+       setSaveBook({
+            imgLoc: book.volumeInfo.imageLinks.thumbnail,
+            title: book.volumeInfo.title, 
+            authors: book.volumeInfo.authors,
+            description: book.volumeInfo.description,
+            link: book.accessInfo.pdf.downloadLink
+        })
 
-    //     axios.post('api/books',
-    //         saveBook
-    //     )
-    //     .then(res => {
-    //       console.log(res);
-    //       setSaveBook({})
-    //     })
+        axios.post('api/books',
+            saveBook
+        )
+        .then(res => {
+          console.log(res);
+          setSaveBook({})
+        })
 
-    //     console.log('saveBook', saveBook)
+        console.log('saveBook', saveBook)
     }
 
 

@@ -1,55 +1,25 @@
 import React, { useState,useEffect } from 'react'
-import useFetch from '../utils/useFetch'
+import useAxios from '../utils/useAxios'
 import SearchDisplay from './SearchDisplay'
-import axios from 'axios';
-import ReactDOM from "react-dom";
+
 
 const {REACT_APP_API_KEY} = process.env;
 
 
 const Search = () => {
-
+    
     const baseUrl = 'https://www.googleapis.com/books/v1/volumes'
     const [query, setQuery] = useState(null);    
-    const [url, setUrl] = useState('');
-    const [data, setData] = useState(null);
-    const [isError, setIsError] = useState(null);
-    const [isPending, setIsPending] = useState(false);
-    const [render, setRender] = useState(false)
+    const [url, setUrl] = useState(null);
+    const {data, isError, isPending} = useAxios(url);
+    const [bookdata, setBookdata] = useState(null);
 
-  
-    useEffect(() => {
-        // setting up to catch an abort in the query
-        const CancelToken = axios.CancelToken;
-        const source = CancelToken.source();
-
-            axios.get(url, {cancelToken: source.token,
-                responseType: 'json'})
-                .then(res => {
-                    if(res.status !== 200){
-                     throw Error("Did not get valid for that resource")
-                    }
-                return res.data;
-                })
-                .then ((data) => {
-                setData(data);
-                setIsPending(false);
-                setIsError(null);
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                    if (axios.isCancel.err) {
-                        console.log('Request canceled', err.message);
-                      }  else {    
-                    setIsError(err.message);
-                    setIsPending(false);
-                    }
-                })
-        return () => CancelToken.cancel;
-    },[url]) 
+    //required this useEffect to Render when data change from custom hook useAxios 
+    useEffect(() =>{
+        setBookdata(data)
+    },[data])
 
 
-    
     const handleClick = async (e) => {
         e.preventDefault();
         var {author, title, subject} = query;
@@ -58,11 +28,9 @@ const Search = () => {
         subject ? subject = '+subject:' + subject.replace(/\s/g, '+').toLowerCase(): subject='';   
         query &&  setUrl(baseUrl + '?q=' + subject + author + title + 
         '&maxResults=30&filter=free-ebooks&printType=books&projection=lite&key=' + REACT_APP_API_KEY );
-        setData();
-
+        setBookdata();
         }
     
-
     return (
         <div>
             <span>Search for free ebooks </span> 
@@ -83,9 +51,9 @@ const Search = () => {
             </button>
             </form>
 
-            {isError && <div>No Data - {isError}</div> }
+            {url && isError && <div>No Data - {isError}</div> }
             {isPending && <div>Data is Loading ...</div> }
-            {data &&  <SearchDisplay data={data} />}
+            {bookdata &&  <SearchDisplay data={bookdata} />}
         </div>
     )
 }
