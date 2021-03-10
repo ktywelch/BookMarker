@@ -14,8 +14,11 @@ const useAxios = (url)  => {
         const CancelToken = axios.CancelToken;
         const source = CancelToken.source();
 
-            axios.get(url, {cancelToken: source.token,
-                responseType: 'json'})
+            axios.get(url, {
+                cancelToken: source.token,
+                responseType: 'json',
+                headers: { "x-auth-token": localStorage.getItem("auth-token")}
+                })
                 .then(res => {
                     if(res.status !== 200){
                      throw Error("Did not get valid for that resource")
