@@ -6,7 +6,7 @@ import axios from 'axios';
 const Saved = () => {
 
 
-    const url = 'http://localhost:3030/api/books';
+    const url = '/api/books';
     const [data, setData] = useState(null);
     const [isError, setIsError] = useState(null);
     const [isPending, setIsPending] = useState(true);

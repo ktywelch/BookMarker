@@ -52,7 +52,6 @@ return (
             <Route exact path="/Search" component={Search} />
             <Route path="/Login" component={Login} />
             <Route path="/Register" component={Register} />     
-            <Route path="*" component={Home} />
           </Switch>
         </UserContext.Provider>
        </div>
