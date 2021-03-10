@@ -30,7 +30,7 @@ const Navbar = () => {
             </Fragment>
           )
         }       
-    }, [userData.user, logout])
+    }, [userData])
 
 
 
