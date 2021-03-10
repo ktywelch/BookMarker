@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from "./Context/UserContext"
-import { useHistory } from "react-router-dom";
 
 
 const Navbar = () => {
@@ -31,7 +30,7 @@ const Navbar = () => {
             </Fragment>
           )
         }       
-    }, [userData.user])
+    }, [userData.user, logout])
 
 
 

@@ -6,12 +6,12 @@ import axios from 'axios';
 const Saved = () => {
 
 
-    const [url, setUrl] = useState('api/books');
+    const url = 'api/books';
     const [data, setData] = useState(null);
     const [isError, setIsError] = useState(null);
     const [isPending, setIsPending] = useState(true);
 
-
+/// need to fix this not sure impace of using the x-auth-token everywhere tink it is fine ...
     useEffect(() => {
         // setting up to catch an abort in the query
         const CancelToken = axios.CancelToken;
@@ -48,8 +48,8 @@ const Saved = () => {
 
 
 
-    const hdr = '{ headers: { "x-auth-token": localStorage.getItem("auth-token") },}';
-    const [query, setQuery] = useState(null);    
+    //const hdr = '{ headers: { "x-auth-token": localStorage.getItem("auth-token") },}';
+  
 
     //const {data, isError, isPending} = useAxios(url,hdr);
     const [bookdata, setBookdata] = useState(data);

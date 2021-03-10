@@ -6,7 +6,7 @@ import Saved from './components/pages/Saved.js';
 import Search from './components/pages/Search.js';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import UserContext from "./components/Context/UserContext"
 
 
@@ -35,28 +35,13 @@ function App() {
     }
   };
 
-  const logout = () => {
-    setUserData({ token: undefined, user: undefined });
-    localStorage.setItem("auth-token", "");
-  };
-
   useEffect(() => {
     checkLoggedIn();
   }, []);
 
 return (
   <div className="App">
-    <Router>
-      {/* {!userData.user ? (
-          <>
-            <Link to="/login">Login</Link> <Link to="/register">Register</Link>
-          </>
-        ) : (
-          <Link to="/" onClick={logout}>
-            Logout
-          </Link>
-        )} */}
- 
+    <Router> 
       <div className="content">
         <UserContext.Provider value={{ userData, setUserData }}>
         <Navbar />
