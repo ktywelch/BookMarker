@@ -20,7 +20,7 @@ const Register = () => {
     console.log('here');
 
           try {
-            const newUser = await axios.post("/users/register", form);
+            const newUser = await axios.post("http://localhost:3030/users/register", form);
             history.push('/Login')
             console.log(newUser);
           } catch (err) {
