@@ -11,7 +11,7 @@ const SearchDisplay = (props) => {
    useEffect(() => {
        books && setFilteredBooks (
             books.filter ( book => {
-                return book.title.toLowerCase().includes(search.toLowerCase());
+                return book.title.toLowerCase().includes(search.toLowerCase()) || book.description.toLowerCase().includes(search.toLowerCase());
             }))
     }, [search, books])  
 
@@ -23,7 +23,7 @@ const SearchDisplay = (props) => {
 
     return (
         <div className="SearchDisplay">
-            <span>Filter by Title: </span> 
+            <span>Filter by Title and Description: </span> 
              <input type="text" placeholder="Enter Filter Criteria" onChange={ e => setSerach(e.target.value)} />
             
               <table className="responsive-table">

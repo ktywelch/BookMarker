@@ -7,7 +7,6 @@ var app = express()
 // const logger = require("morgan");
 // app.use(logger("dev"));
 
-
 const PORT = process.env.PORT || 3030;
 
 mongoose.connect(process.env.MONGODB_URL, {

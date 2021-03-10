@@ -13,7 +13,7 @@ const SearchDisplay = (props) => {
     useEffect(() => {
         books && setFilteredBooks (
              books.filter ( book => {
-                 return book.volumeInfo.title.toLowerCase().includes(search.toLowerCase());
+                 return book.volumeInfo.title.toLowerCase().includes(search.toLowerCase()) || book.volumeInfo.description.toLowerCase().includes(search.toLowerCase());
              }))
      }, [search, books])  
 

@@ -10,12 +10,12 @@ import { useHistory } from "react-router-dom";
 const Search = () => {
 
     const {REACT_APP_API_KEY} = process.env;
-    console.log(process.env);
+  
     
     const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
     const baseUrl = 'https://www.googleapis.com/books/v1/volumes'
-    const [query, setQuery] = useState(null);    
+    const [query, setQuery] = useState({author: '', subject: '', title: ''});    
     const [url, setUrl] = useState(null);
     const {data, isError, isPending} = useAxios(url);
     const [bookdata, setBookdata] = useState(null);
@@ -33,33 +33,36 @@ const Search = () => {
 
     const handleClick = async (e) => {
         e.preventDefault();
+        console.log(e);
         var {author, title, subject} = query;
+        console.log(query);
         author ? author = '+inauthor:' + author.replace(/\s/g, '+').toLowerCase() : author='';
         title ? title = '+intitle:' + title.replace(/\s/g, '+').toLowerCase() : title='';
         subject ? subject = '+subject:' + subject.replace(/\s/g, '+').toLowerCase(): subject='';   
         query &&  setUrl(baseUrl + '?q=' + subject + author + title + 
         '&maxResults=30&filter=ebooks&printType=books&projection=lite&key=' + REACT_APP_API_KEY );
         setBookdata();
+        setQuery({author: '', subject: '', title: ''});
         }
-    
+        
     return (
         <div>
             <h4>Search Google  Books for ebooks </h4> 
             <form className='col s12'>
                 <div className="row">   
                     <input  style={{margin: 10}} 
-                        className="input-field col s2" type="text" placeholder=" Author" name="author" 
+                        className="input-field col s2" type="text" placeholder=" Author" name="author" value={query.author}
                         onChange={e => setQuery({ ...query, author: e.target.value })}/>
                     <input  style={{margin: 10}} 
-                        className="input-field col s2" type="text" placeholder=" Title" name="title" 
+                        className="input-field col s2" type="text" placeholder=" Title" name="title" value={query.title}
                         onChange={e => setQuery({ ...query, title: e.target.value })}/>
                     <input  style={{margin: 10}} 
-                        className="input-field col s2" type="text" placeholder=" Category (eg. fiction)" name="subject" 
+                        className="input-field col s2" type="text" placeholder=" Category (eg. fiction)" name="subject"  value={query.subject}
                         onChange={e => setQuery({ ...query, subject: e.target.value })}/>
                 </div>
                 <button type="button" onClick={(e) => handleClick(e)}>
-                Start Search
-            </button>
+                    Start Search
+                </button>
             </form>
 
             {url && isError && <div>No Data - {isError}</div> }

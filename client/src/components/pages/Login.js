@@ -40,7 +40,7 @@ const Login = () => {
         <input onChange={onChange} type="text" name="email" />
         <label>Password</label>
         <input onChange={onChange} type="password" name="password" />
-        <input  type="submit" />
+        <button type="submit">Login</button>
         <button style={{ margin: 20}} onClick={() => history.push('/Register')}>Register</button>
       </form>
   
