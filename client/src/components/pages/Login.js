@@ -15,7 +15,7 @@ const Login = () => {
   const submitLoginForm = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/users/login", form);
+      const { data } = await axios.post("http://localhost:3030/users/login", form);
 
       setUserData({
         token: data.token,

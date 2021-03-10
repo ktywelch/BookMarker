@@ -26,7 +26,7 @@ const Register = () => {
           } catch (err) {
             console.log(err.response);
             setMsg(<Fragment> <h5 style={{padding: 4,color: 'red'}}>Registration failed pleas try again</h5></Fragment>)
-            setTimeout(() =>  window.location.reload(), 3000)
+            setTimeout(() =>  window.location.reload(), 8000)
           }
    
   };
