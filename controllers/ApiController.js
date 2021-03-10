@@ -34,7 +34,6 @@ module.exports = {
    .catch(err => res.status(422).json(err));
   },
   createBook:  (req,res) => {
-    console.log('missing req',req.body),
     Books.create(req.body)
     .then(dbBooks => {
       res.json(dbBooks);
