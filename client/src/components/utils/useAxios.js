@@ -17,7 +17,8 @@ const useAxios = (url)  => {
             axios.get(url, {
                 cancelToken: source.token,
                 responseType: 'json',
-                headers: { "x-auth-token": localStorage.getItem("auth-token")}
+                headers: { "x-auth-token": localStorage.getItem("auth-token"),
+                "Access-Control-Allow-Origin": "*"}
                 })
                 .then(res => {
                     if(res.status !== 200){
