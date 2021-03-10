@@ -1,26 +1,29 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import getDescendantProp from '../utils/getDescendantProp'    
-
+import React, { useEffect, useState } from 'react';
+ 
 
 const SearchDisplay = (props) => {
 
-    const [filteredBooks, setFilteredBooks] =  useState(props.data) 
+    const books = props.books;
+    const [filteredBooks, setFilteredBooks] =  useState(books) 
     const [search, setSerach] = useState('');
 
-     
+  
+   useEffect(() => {
+       books && setFilteredBooks (
+            books.filter ( book => {
+                return book.title.toLowerCase().includes(search.toLowerCase());
+            }))
+    }, [search, books])  
+
  function handleSaveClick (e,book) {
        e.preventDefault();
        console.log('click',book.link)
-     
-
-   
     }
 
 
     return (
         <div className="SearchDisplay">
-            <span>Filter by Name: </span> 
+            <span>Filter by Title: </span> 
              <input type="text" placeholder="Enter Filter Criteria" onChange={ e => setSerach(e.target.value)} />
             
               <table className="responsive-table">

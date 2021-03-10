@@ -11,9 +11,13 @@ const Home = () => {
       }, [userData.user, history]);
 
     return (
-        <div>
-            <p>Home Page</p>
-            <h3>Your name is: {userData.user?.displayName}</h3>
+        <div className="container" style={{maxWidth: 800}}>         
+            <h4>Welcome to the book marker application,  {userData.user?.displayName}</h4>
+            <br/>
+            <p>This is an aplication that let's you signup and search for google e-books and save 
+               the ones you want to refences into a database. The database is persistent and  
+               the books you saved will be there for you on your next login in the saved tab.
+            </p>
         </div>
     )
 }

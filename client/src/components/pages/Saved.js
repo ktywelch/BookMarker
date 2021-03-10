@@ -1,15 +1,26 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import SavedDisplay from './SavedDisplay';
 import useAxios from '../utils/useAxios';
 import axios from 'axios';
+import UserContext from "../Context/UserContext";
+import { useHistory } from "react-router-dom";
+
 
 const Saved = () => {
 
+    const { userData, setUserData } = useContext(UserContext);
+    const history = useHistory();
 
-    const url = '/api/books';
     const [data, setData] = useState(null);
     const [isError, setIsError] = useState(null);
     const [isPending, setIsPending] = useState(true);
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login");
+      }, [userData.user, history]);
+   
+      const url = '/api/booksTag/'  + userData.user.id;
+      console.log(url);
 
 /// need to fix this not sure impace of using the x-auth-token everywhere tink it is fine ...
     useEffect(() => {
@@ -45,30 +56,15 @@ const Saved = () => {
         return () => CancelToken.cancel;
     },[url]) 
 
-
-
-
-    //const hdr = '{ headers: { "x-auth-token": localStorage.getItem("auth-token") },}';
   
-
-    //const {data, isError, isPending} = useAxios(url,hdr);
-    const [bookdata, setBookdata] = useState(data);
     console.log(data);
 
-    //required this useEffect to Render when data change from custom hook useAxios 
-    useEffect(() =>{
-        data && setBookdata(data)
-    },[data])
-
-
-    
     return (
         <div>
             <span>List of books saved </span> 
-
-            {url && isError && <div>No Data - {isError}</div> }
-            {isPending && <div>Data is Loading ...</div> }
-            {bookdata &&  <SavedDisplay data={bookdata} calledby={'saved'} />}
+            {/* {url && isError && <div>No Data - {isError}</div> }
+            {isPending && <div>Data is Loading ...</div> } */}
+            {data &&  <SavedDisplay books={data} calledby={'saved'} />}
         </div>
     )    
 }

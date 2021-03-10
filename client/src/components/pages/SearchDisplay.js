@@ -1,13 +1,26 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import getDescendantProp from '../utils/getDescendantProp'    
-
+import React, { useEffect, useState, useContext } from 'react'
+import axios from 'axios'    
+import UserContext from "../Context/UserContext"
+import { useHistory } from "react-router-dom";
 
 const SearchDisplay = (props) => {
-
-    const [filteredBooks, setFilteredBooks] =  useState(props.data) 
+    const { userData, setUserData } = useContext(UserContext);
+    const history = useHistory();
+    const books = props.data;
+    const [filteredBooks, setFilteredBooks] =  useState(books); 
     const [search, setSerach] = useState('');
 
+    useEffect(() => {
+        books && setFilteredBooks (
+             books.filter ( book => {
+                 return book.volumeInfo.title.toLowerCase().includes(search.toLowerCase());
+             }))
+     }, [search, books])  
+
+     useEffect(() => {
+        if (!userData.user) history.push("/login");
+      }, [userData.user, history]);
+   
      
  function handleSaveClick (e,book) {
        e.preventDefault();
@@ -20,7 +33,8 @@ const SearchDisplay = (props) => {
             title: book.volumeInfo.title, 
             authors: book.volumeInfo.authors,
             description: book.volumeInfo.description,
-            link: book.selfLink
+            link: book.selfLink,
+            userID: userData.user.id
             },
             {
                 headers: { "x-auth-token": localStorage.getItem("auth-token") },
@@ -35,7 +49,7 @@ const SearchDisplay = (props) => {
 
     return (
         <div className="responsive-table">
-            <span>Filter by Name: </span> 
+            <span>Filter by title: </span> 
              <input type="text" placeholder="Enter Filter Criteria" onChange={ e => setSerach(e.target.value)} />
             
               <table>

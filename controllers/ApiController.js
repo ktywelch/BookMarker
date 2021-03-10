@@ -8,6 +8,14 @@ module.exports = {
     .then(dbBooks => res.json(dbBooks))
     .catch(err => res.status(400).json(err))
   }, 
+  getBooksTag: async (req,res) => {
+    //verified code works
+      Books.find({
+        userID: req.params.id
+      })
+      .then(dbBooks => res.json(dbBooks))
+      .catch(err => res.status(400).json(err))
+    }, 
   delBook: async (req, res) =>  {
     Books
       .findById({ _id: req.params.id })

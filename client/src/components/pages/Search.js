@@ -1,23 +1,34 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useContext } from 'react'
 import useAxios from '../utils/useAxios'
 import SearchDisplay from './SearchDisplay'
-const {REACT_APP_API_KEY} = process.env;
+import UserContext from "../Context/UserContext";
+import { useHistory } from "react-router-dom";
+
+
 
 
 const Search = () => {
+
+    const {REACT_APP_API_KEY} = process.env;
+    console.log(process.env);
     
+    const { userData, setUserData } = useContext(UserContext);
+    const history = useHistory();
     const baseUrl = 'https://www.googleapis.com/books/v1/volumes'
     const [query, setQuery] = useState(null);    
     const [url, setUrl] = useState(null);
     const {data, isError, isPending} = useAxios(url);
     const [bookdata, setBookdata] = useState(null);
 
+    useEffect(() => {
+        if (!userData.user) history.push("/login");
+      }, [userData.user, history]);
+   
+
     //required this useEffect to Render when data change from custom hook useAxios 
     useEffect(() =>{
         data && setBookdata(data.items)
     },[data])
-
-  
 
 
     const handleClick = async (e) => {
@@ -27,13 +38,13 @@ const Search = () => {
         title ? title = '+intitle:' + title.replace(/\s/g, '+').toLowerCase() : title='';
         subject ? subject = '+subject:' + subject.replace(/\s/g, '+').toLowerCase(): subject='';   
         query &&  setUrl(baseUrl + '?q=' + subject + author + title + 
-        '&maxResults=30&filter=free-ebooks&printType=books&projection=lite&key=' + REACT_APP_API_KEY );
+        '&maxResults=30&filter=ebooks&printType=books&projection=lite&key=' + REACT_APP_API_KEY );
         setBookdata();
         }
     
     return (
         <div>
-            <span>Search for free ebooks </span> 
+            <h4>Search Google  Books for ebooks </h4> 
             <form className='col s12'>
                 <div className="row">   
                     <input  style={{margin: 10}} 
