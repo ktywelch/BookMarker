@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const path = require("path");
 var app = express()
 
+const logger = require("morgan");
+app.use(logger("dev"));
+
 const PORT = process.env.PORT || 3030;
 
 mongoose.connect(process.env.MONGODB_URL, {
@@ -19,10 +22,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/users", require("./routes/userRoutes"));
+
 app.use("/api", require("./routes/api_routes"));
-
-
-
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

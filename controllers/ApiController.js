@@ -4,34 +4,38 @@ const Books = require("../models/books")
 module.exports = {
   getBooks: async (req,res) => {
   //verified code works
-    try {
-    const dbBooks = Books.find({})
-    res.json(dbBooks);
-    } catch(err)  {
-      res.status(400).json(err);
-    }
+    Books.find({})
+    .then(dbBooks => res.json(dbBooks))
+    .catch(err => res.status(400).json(err))
   }, 
-  getBook: async (req,res) => {
-    Books.findById(req.params.id)
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
+  delBook: async (req, res) =>  {
+    Books
+      .findById({ _id: req.params.id })
+      .then(dbBooks => dbBooks.remove())
+      .then(dbBooks => res.json(dbBooks))
+      .catch(err => res.status(422).json(err));
   },
   updateBook: async (req,res) => {
     Books.findOneAndUpdate({ _id: req.params.id }, req.body)
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
+   .then(dbModel => res.json(dbModel))
+   .catch(err => res.status(422).json(err));
   },
-  delBook: async (req,res) => {
-    Books.findById({ _id: req.params.id })
-   .then(dbBooks => dbBooks.remove())
-   .then(dbBooks => res.json(dbBooks))
-   .catch(err => res.status(422).json(err))
-  },
-  createBook: async (req,res) => {
-   Books.create(req.body)
+  getBook: async (req,res) => {
+    Books.findById(req.params.id)
    .then(dbBooks => res.json(dbBooks))
    .catch(err => res.status(422).json(err));
+  },
+  createBook:  (req,res) => {
+    console.log('missing req',req.body),
+    Books.create(req.body)
+    .then(dbBooks => {
+      res.json(dbBooks);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    }); 
   }
 
 }
+
 

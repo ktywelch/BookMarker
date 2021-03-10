@@ -1,12 +1,12 @@
 const router = require("express").Router();
 const auth = require("../middleware/auth");
-const { getBooks, getBook,updateBook,delBook,createBook } = require("../controllers/ApiController");
+const { getBooks, getBook, updateBook, delBook, createBook } = require("../controllers/ApiController");
 
-router.get('/api/books', getBooks);
-router.get('/api/books/:id', getBook);
-router.put('/api/books/:id', updateBook);
-router.delete('/api/books/:id', delBook);
-router.post('/api/books', createBook)
+router.get('/books', auth, getBooks);
+router.get('/books/:id', auth, getBook);
+router.put('/books/:id', auth, updateBook);
+router.delete('/books/:id',auth, delBook);
+router.post('/books', auth, createBook);
 
 module.exports = router;
 

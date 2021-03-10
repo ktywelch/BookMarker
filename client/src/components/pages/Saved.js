@@ -1,12 +1,57 @@
-import React, { useState,useEffect } from 'react'
-import SavedDisplay from './SavedDisplay'
-import useAxios from '../utils/useAxios'
+import React, { useState,useEffect } from 'react';
+import SavedDisplay from './SavedDisplay';
+import useAxios from '../utils/useAxios';
+import axios from 'axios';
 
 const Saved = () => {
 
-    const [query, setQuery] = useState(null);    
+
     const [url, setUrl] = useState('api/books');
-    const {data, isError, isPending} = useAxios(url);
+    const [data, setData] = useState(null);
+    const [isError, setIsError] = useState(null);
+    const [isPending, setIsPending] = useState(true);
+
+
+    useEffect(() => {
+        // setting up to catch an abort in the query
+        const CancelToken = axios.CancelToken;
+        const source = CancelToken.source();
+
+            axios.get(url, {
+                cancelToken: source.token,
+                responseType: 'json',
+                headers: { "x-auth-token": localStorage.getItem("auth-token")}
+                })
+                .then(res => {
+                    if(res.status !== 200){
+                     throw Error("Did not get valid for that resource")
+                    }
+                return res.data;
+                })
+                .then ((data) => {
+                setData(data);
+                setIsPending(false);
+                setIsError(null);
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                    if (axios.isCancel.err) {
+                        console.log('Request canceled', err.message);
+                      }  else {    
+                    setIsError(err.message);
+                    setIsPending(false);
+                    }
+                })
+        return () => CancelToken.cancel;
+    },[url]) 
+
+
+
+
+    const hdr = '{ headers: { "x-auth-token": localStorage.getItem("auth-token") },}';
+    const [query, setQuery] = useState(null);    
+
+    //const {data, isError, isPending} = useAxios(url,hdr);
     const [bookdata, setBookdata] = useState(data);
     console.log(data);
 

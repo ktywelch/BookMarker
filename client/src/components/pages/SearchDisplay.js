@@ -21,7 +21,10 @@ const SearchDisplay = (props) => {
             authors: book.volumeInfo.authors,
             description: book.volumeInfo.description,
             link: book.selfLink
-            }
+            },
+            {
+                headers: { "x-auth-token": localStorage.getItem("auth-token") },
+              }
         )
         .then(res => {
             console.log(res);
