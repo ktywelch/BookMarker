@@ -22,7 +22,6 @@ const Register = () => {
           try {
             const newUser = await axios.post("/users/register", form);
             history.push('/Login')
-            console.log(newUser);
           } catch (err) {
             console.log(err.response);
             setMsg(<Fragment> <h5 style={{padding: 4,color: 'red'}}>Registration failed pleas try again</h5></Fragment>)
