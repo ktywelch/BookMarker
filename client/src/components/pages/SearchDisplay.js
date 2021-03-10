@@ -8,14 +8,8 @@ const SearchDisplay = (props) => {
     const history = useHistory();
     const books = props.data;
     const [filteredBooks, setFilteredBooks] =  useState(books); 
-    const [search, setSerach] = useState('');
 
-    useEffect(() => {
-        books && setFilteredBooks (
-             books.filter ( book => {
-                 return book.volumeInfo.title.toLowerCase().includes(search.toLowerCase()) || book.volumeInfo.description.toLowerCase().includes(search.toLowerCase());
-             }))
-     }, [search, books])  
+
 
      useEffect(() => {
         if (!userData.user) history.push("/login");
@@ -49,9 +43,7 @@ const SearchDisplay = (props) => {
 
     return (
         <div className="responsive-table">
-            <span>Filter by title: </span> 
-             <input type="text" placeholder="Enter Filter Criteria" onChange={ e => setSerach(e.target.value)} />
-            
+          
               <table>
                 <thead>
                 <tr>     
