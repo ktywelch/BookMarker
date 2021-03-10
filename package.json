@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start": "concurrently \"node server.js\" \"npm run client\"",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"nodemon server.js\" \"dotenv -e ./.env npm run client\"",
+    "dev": "concurrently \"node server.js\" \"npm run client\"",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
