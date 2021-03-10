@@ -13,7 +13,7 @@ const SearchDisplay = (props) => {
        e.preventDefault();
        console.log('click')
        //Save the book details
-       axios.post('api/books',
+       axios.post('http://localhost:3030/api/books',
             {
             bookId: book.id,    
             imgLoc: book.volumeInfo.imageLinks.thumbnail,

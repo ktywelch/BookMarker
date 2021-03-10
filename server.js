@@ -3,9 +3,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 var app = express()
-
+var cors = require('cors')
 // const logger = require("morgan");
 // app.use(logger("dev"));
+app.use(cors())
 
 const PORT = process.env.PORT || 3030;
 
