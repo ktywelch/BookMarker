@@ -26,7 +26,6 @@ const Register = () => {
             history.push('/confirmation')
           } catch (err) {
             toast.error(err.response);
-
           }
       } 
   };

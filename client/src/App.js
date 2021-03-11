@@ -63,6 +63,7 @@ function App() {
 return (
   <div className="App">
     <Router> 
+    <ToastContainer />
       <div className="content">
         <UserContext.Provider value={{ userData, setUserData }}>
         <Navbar />

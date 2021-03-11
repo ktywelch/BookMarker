@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 
 
 
+
 const Search = () => {
 
     const {REACT_APP_API_KEY} = process.env;
@@ -41,6 +42,7 @@ const Search = () => {
         subject ? subject = '+subject:' + subject.replace(/\s/g, '+').toLowerCase(): subject='';   
         query &&  setUrl(baseUrl + '?q=' + subject + author + title + 
         '&maxResults=30&filter=ebooks&printType=books&projection=lite&key=' + REACT_APP_API_KEY );
+        alert(url);
         setBookdata();
         setQuery({author: '', subject: '', title: ''});
         }
