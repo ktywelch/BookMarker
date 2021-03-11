@@ -6,8 +6,11 @@ import Saved from './components/pages/Saved.js';
 import Search from './components/pages/Search.js';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
+import Confirmation from './components/pages/Confirmation';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import UserContext from "./components/Context/UserContext"
+import UserContext from "./components/Context/UserContext";
+import ConfirmAccount from './components/pages/ConfirmAccount';
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -33,7 +36,25 @@ function App() {
         console.log("User must login");
       }
     }
-  };
+  
+    const tokenRes = await axios.post("/users/tokenIsValid", null, {
+       headers: { "x-auth-token": token },
+     });
+
+      
+
+      if (tokenRes.data) {
+        const userRes = axios.put("/users/", null, {
+          headers: { "x-auth-token": token },
+        });
+
+        setUserData({
+          token,
+          user: userRes.data,
+        });
+      }
+    }
+
 
   useEffect(() => {
     checkLoggedIn();
@@ -47,11 +68,13 @@ return (
         <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/Home"component={Home} />
-            <Route exact path="/Saved" component={Saved} />
-            <Route exact path="/Search" component={Search} />
-            <Route path="/Login" component={Login} />
-            <Route path="/Register" component={Register} />     
+            <Route exact path="/home"component={Home} />
+            <Route exact path="/saved" component={Saved} />
+            <Route exact path="/search" component={Search} />
+            <Route path="/confirmation" component={Confirmation} />
+            <Route path="/confirm_account/:token" component={ConfirmAccount} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />     
           </Switch>
         </UserContext.Provider>
        </div>

@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [msg, setMsg] = useState(<Fragment >
@@ -18,21 +19,54 @@ const Register = () => {
   const submit = async (e) => {
     e.preventDefault();
     console.log('here');
-     if(form.password === form.passwordCheck){
+     if(validEmail(form.email) && validPassword(form.password) &&   passCheck(form.password,form.passwordCheck)){
           try {
+            console.log(form);
             const newUser = await axios.post("/users/register", form);
-            history.push('/Login')
+            history.push('/confirmation')
           } catch (err) {
-            console.log(err.response);
-            setMsg(<Fragment> <h5 style={{padding: 4,color: 'red'}}>Registration failed pleas try again</h5></Fragment>)
-            setTimeout(() =>  window.location.reload(), 3000)
-            setForm({email: '', password: '', passwordCheck: '', displayName: ''})
+            toast.error(err.response);
+
           }
-      } else {
-        setMsg(<Fragment> <h5 style={{padding: 4,color: 'red'}}>Passwords do not match please try again</h5></Fragment>)
-        setTimeout(() =>  setForm({...form, password: '', passwordCheck: ''}), 3000)
-      }
+      } 
   };
+
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  const validEmail = (str) => {
+    if (validateEmail(str)) {
+      return true;
+    }
+    toast.error('Password is less than 8 characters');
+    setTimeout(() =>  setForm({...form, email: ''}), 3000);
+     return false;
+  };
+
+
+  const validPassword = (str) => {
+    if (str.length >= 8) {
+      return true;
+    }
+    toast.error('Password is less than 8 characters');
+    setTimeout(() =>  setForm({...form, password: '', passwordCheck: ''}), 3000);
+    return false;
+  };
+
+
+  
+  const passCheck = (str1,str2) => {
+    if (str1 === str2) {
+      return true;
+    }
+    toast.error('Passwords do not match please try again');
+    setTimeout(() =>  setForm({...form, password: '', passwordCheck: ''}), 3000);
+    return false;
+  };
+
+
 
   return (
     <div className="container" style={{maxWidth: 600}}>

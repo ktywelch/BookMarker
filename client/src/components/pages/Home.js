@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../Context/UserContext";
+import io from 'socket.io'
+
 
 const Home = () => {
     const { userData } = useContext(UserContext);
     const history = useHistory();
+    const socket = io();
 
     useEffect(() => {
         if (!userData.user) history.push("/login");
