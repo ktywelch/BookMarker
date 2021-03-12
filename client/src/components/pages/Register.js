@@ -79,7 +79,7 @@ const Register = () => {
         <input onChange={onChange} type="password" name="passwordCheck"  value={form.passwordCheck}/>
         <label>Display Name</label>
         <input onChange={onChange} type="text" name="displayName"  value={form.displayName}/>
-        <input type="submit" />
+        <button type="submit">Register</button>
       </form>
     </div>
   );
