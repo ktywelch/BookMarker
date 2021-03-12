@@ -39,9 +39,7 @@ app.use(cors());
 
 app.use(express.static("public"));
 
-app.use("/users", require("./routes/userRoutes"));
-app.use("/api", require("./routes/api_routes"));
-app.use("/confirm", require("./routes/confirmRoutes"));
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -49,6 +47,10 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+app.use("/users", require("./routes/userRoutes"));
+app.use("/api", require("./routes/api_routes"));
+app.use("/confirm", require("./routes/confirmRoutes"));
 
 
 app.listen(PORT, () => console.log(`App running on PORT http://localhost:${PORT}`));
