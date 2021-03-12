@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"node server.js\" \"npm run client\"",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"nodemon server.js\" \"dotenv -e ./.env npm run client\"",
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
