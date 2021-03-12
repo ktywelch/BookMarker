@@ -98,19 +98,19 @@ module.exports = {
       const { email, password } = req.body;
 
       if (!email || !password) {
-        res.status(400).json({ msg: "all required fields were not sent" });
+        res.status(400).json({ msg: "All required fields were not sent" });
       }
 
       const user = await User.findOne({ email: email });
 
       if (!user) {
-        res.status(400).json({ msg: "User downs exist" });
+        res.status(400).json({ msg: "User does not exist" });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        res.status(400).json({ msg: "this was an incorrect password" });
+        res.status(400).json({ msg: "Incorrect password" });
       }
 
       if (!user.confirmed)

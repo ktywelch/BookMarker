@@ -18,8 +18,7 @@ const Register = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-    console.log('here');
-     if(validEmail(form.email) && validPassword(form.password) &&   passCheck(form.password,form.passwordCheck)){
+    //  if(validEmail(form.email) && validPassword(form.password) &&   passCheck(form.password,form.passwordCheck)){
           try {
             console.log(form);
             const newUser = await axios.post("/users/register", form);
@@ -27,7 +26,7 @@ const Register = () => {
           } catch (err) {
             toast.error(err.response);
           }
-      } 
+      //} 
   };
 
   function validateEmail(email) {
