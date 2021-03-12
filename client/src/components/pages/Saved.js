@@ -27,6 +27,22 @@ const Saved = () => {
         // setting up to catch an abort in the query
         const CancelToken = axios.CancelToken;
         const source = CancelToken.source();
+        
+        /*   try {
+            const { data } = await axios.post("/users/login", form);
+      
+            setUserData({
+              token: data.token,
+              user: data.user,
+            });
+      
+            localStorage.setItem("auth-token", data.token);
+            history.push("/");
+          } catch (err) {
+              */
+
+
+            
 
             axios.get(url, {
                 cancelToken: source.token,
@@ -54,7 +70,7 @@ const Saved = () => {
                     setIsPending(false);
                     }
                 })
-        return () => CancelToken.cancel;
+        // return () => CancelToken.cancel;
     },[url]) 
 
   
