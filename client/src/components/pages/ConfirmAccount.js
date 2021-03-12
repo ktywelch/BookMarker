@@ -10,7 +10,6 @@ const ConfirmAccount = (props) => {
   useEffect(() => {
     (async () => {
       try {
-        alert(props)
         await axios.post("/confirm", {
           token: props.match.params.token,
         });

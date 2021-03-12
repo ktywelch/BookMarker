@@ -12,7 +12,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 io.on('connection', (socket) => {
