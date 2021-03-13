@@ -26,51 +26,27 @@ const Saved = () => {
     useEffect(() => {
         // setting up to catch an abort in the query
         const CancelToken = axios.CancelToken;
-        const source = CancelToken.source();
-        
-        /*   try {
-            const { data } = await axios.post("/users/login", form);
-      
-            setUserData({
-              token: data.token,
-              user: data.user,
-            });
-      
-            localStorage.setItem("auth-token", data.token);
-            history.push("/");
-          } catch (err) {
-              */
-
-
-            
-
-            axios.get(url, {
+        const source = CancelToken.source();   
+        try {
+            const { data } = await axios.get(url, {
                 cancelToken: source.token,
                 responseType: 'json',
-                headers: { "x-auth-token": localStorage.getItem("auth-token")}
-                })
-                .then(res => {
-                    if(res.status !== 200){
-                     throw Error("Did not get valid for that resource")
-                    }
-                return res.data;
-                })
-                .then ((data) => {
-                console.log(data);
+                headers: { "x-auth-token": localStorage.getItem("auth-token")}})
                 setData(data);
                 setIsPending(false);
                 setIsError(null);
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                    if (axios.isCancel.err) {
-                        console.log('Request canceled', err.message);
-                      }  else {    
-                    setIsError(err.message);
-                    setIsPending(false);
-                    }
-                })
-        // return () => CancelToken.cancel;
+        } catch (err) {
+            console.log("err",err.response);
+            toast.error(err.response.data.msg);
+            if (axios.isCancel.err) {
+                console.log('Request canceled', err.message);
+            }  else {  
+                console.log(err.message);        
+                setIsError(err.message);
+                setIsPending(false);
+            }
+        };
+      return () => CancelToken.cancel;
     },[url]) 
 
   
