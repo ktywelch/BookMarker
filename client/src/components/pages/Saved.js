@@ -25,8 +25,8 @@ const Saved = () => {
         const source = CancelToken.source();   
         try {
             const { data } = await axios.put(url, {
-                responseType: 'json',
-                headers: { "x-auth-token": localStorage.getItem("auth-token")}})
+                responseType: 'json'},
+                {headers: { "x-auth-token": localStorage.getItem("auth-token")}})
                 setData(data);
                 setIsPending(false);
                 setIsError(null);
