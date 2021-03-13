@@ -4,9 +4,12 @@ const Books = require("../models/books")
 module.exports = {
   getBooks: async (req,res) => {
   //verified code works
-    Books.find({})
-    .then(dbBooks => res.json(dbBooks))
-    .catch(err => res.status(400).json(err))
+    try{
+      await Books.find({})
+      dbBooks => res.json(dbBooks)
+     } catch {
+      err => res.status(400).json(err)
+     }
   }, 
   getBooksTag: async (req,res) => {
     //verified code works
