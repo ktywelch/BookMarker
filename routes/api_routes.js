@@ -7,6 +7,7 @@ router.get('/booksTag/:id',  getBooksTag);
 router.put('/books/:id', auth, updateBook);
 router.delete('/books/:id',auth, delBook);
 router.post('/books', auth, createBook);
+router.put('/booksTag/:id',  getBooksTag);
 
 module.exports = router;
 
