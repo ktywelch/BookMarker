@@ -25,7 +25,6 @@ const Saved = () => {
         const source = CancelToken.source();   
         try {
             const { data } = await axios.get(url, {
-                cancelToken: source.token,
                 responseType: 'json',
                 headers: { "x-auth-token": localStorage.getItem("auth-token")}})
                 setData(data);
