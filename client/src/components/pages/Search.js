@@ -67,7 +67,7 @@ const Search = () => {
                 </button>
             </form>
 
-            {url && isError && <div>No Data - {isError}</div> }
+            {url && isError && <div>No Data Available {isError}</div> }
             {isPending && <div>Data is Loading ...</div> }
             {bookdata &&  <SearchDisplay data={bookdata} calledby={'search'}/>}
         </div>
