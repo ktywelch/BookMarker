@@ -4,6 +4,7 @@ import useAxios from '../utils/useAxios';
 import axios from 'axios';
 import UserContext from "../Context/UserContext";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 const Saved = () => {
@@ -15,15 +16,10 @@ const Saved = () => {
     const [isError, setIsError] = useState(null);
     const [isPending, setIsPending] = useState(true);
 
-    useEffect(() => {
-        if (!userData.user) history.push("/login");
-      }, [userData.user, history]);
-   
-      const url = '/api/booksTag/'  + userData.user.id;
-      console.log(url);
+
 
 /// need to fix this not sure impace of using the x-auth-token everywhere tink it is fine ...
-    useEffect(() => {
+    const getData = async() => {
         // setting up to catch an abort in the query
         const CancelToken = axios.CancelToken;
         const source = CancelToken.source();   
@@ -47,8 +43,14 @@ const Saved = () => {
             }
         };
       return () => CancelToken.cancel;
-    },[url]) 
-
+    }
+    useEffect(() => {
+        getData();
+        if (!userData.user) history.push("/login");
+      }, [userData.user, history]);
+   
+      const url = '/api/booksTag/'  + userData.user.id;
+      console.log(url);
   
     console.log(data);
 
