@@ -13,7 +13,7 @@ const Search = () => {
     const {REACT_APP_API_KEY} = process.env;
   
     
-    const { userData, setUserData } = useContext(UserContext);
+    // const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
     const baseUrl = 'https://www.googleapis.com/books/v1/volumes'
     const [query, setQuery] = useState({author: '', subject: '', title: ''});    

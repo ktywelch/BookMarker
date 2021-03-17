@@ -7,6 +7,10 @@ const SearchDisplay = (props) => {
     const [filteredBooks, setFilteredBooks] =  useState(books) 
     const [search, setSerach] = useState('');
 
+    useEffect(() => {
+        getData();
+        if (!userData.user) history.push("/login");
+      }, [userData.user, history]);
   
    useEffect(() => {
        books && setFilteredBooks (
