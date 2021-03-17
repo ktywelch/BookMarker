@@ -13,7 +13,7 @@ const Search = () => {
     const {REACT_APP_API_KEY} = process.env;
   
     
-    // const { userData, setUserData } = useContext(UserContext);
+    const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
     const baseUrl = 'https://www.googleapis.com/books/v1/volumes'
     const [query, setQuery] = useState({author: '', subject: '', title: ''});    
@@ -22,9 +22,8 @@ const Search = () => {
     const [bookdata, setBookdata] = useState(null);
 
     useEffect(() => {
-        if (!userData.user) history.push("/login");
+        if (userData.user) history.push("/login");
       }, [userData.user, history]);
-   
 
     //required this useEffect to Render when data change from custom hook useAxios 
     useEffect(() =>{
